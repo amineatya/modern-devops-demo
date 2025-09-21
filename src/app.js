@@ -46,7 +46,8 @@ app.get('/api/v1/status', (req, res) => {
 });
 
 // Error handling middleware
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
+  // eslint-disable-next-line no-console
   console.error(err.stack);
   res.status(500).json({
     error: 'Something went wrong!',
@@ -65,8 +66,11 @@ app.use('*', (req, res) => {
 // Start server
 if (require.main === module) {
   app.listen(PORT, '0.0.0.0', () => {
+    // eslint-disable-next-line no-console
     console.log(`🚀 CI/CD Demo App running on port ${PORT}`);
+    // eslint-disable-next-line no-console
     console.log(`📊 Health check: http://localhost:${PORT}/healthz`);
+    // eslint-disable-next-line no-console
     console.log(`🌐 API info: http://localhost:${PORT}/`);
   });
 }
