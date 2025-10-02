@@ -50,7 +50,12 @@
     "bcryptjs": "^2.4.3",
     "joi": "^17.11.0",
     "dotenv": "^16.3.1",
-    "express-async-errors": "^3.1.1"
+    "express-async-errors": "^3.1.1",
+    "opentracing": "^0.14.7",
+    "jaeger-client": "^3.19.1",
+    "@kubernetes/client-node": "^0.20.0",
+    "chaos-monkey": "^1.0.0",
+    "axios": "^1.6.0"
   },
   "devDependencies": {
     "jest": "^29.7.0",

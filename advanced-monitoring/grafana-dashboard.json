@@ -1,0 +1,281 @@
+{
+  "dashboard": {
+    "id": null,
+    "title": "Modern DevOps Demo - Expert Level Monitoring",
+    "tags": ["devops", "kubernetes", "microservices", "expert"],
+    "style": "dark",
+    "timezone": "browser",
+    "panels": [
+      {
+        "id": 1,
+        "title": "Application Performance Overview",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "rate(http_requests_total[5m])",
+            "legendFormat": "Requests/sec"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "vis": false
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 100
+                }
+              ]
+            }
+          }
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "id": 2,
+        "title": "Request Latency Distribution",
+        "type": "heatmap",
+        "targets": [
+          {
+            "expr": "rate(http_request_duration_seconds_bucket[5m])",
+            "legendFormat": "{{le}}"
+          }
+        ],
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 0
+        }
+      },
+      {
+        "id": 3,
+        "title": "Error Rate by Endpoint",
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "rate(http_requests_total{status_code=~\"5..\"}[5m])",
+            "legendFormat": "{{endpoint}} - {{status_code}}"
+          }
+        ],
+        "gridPos": {
+          "h": 8,
+          "w": 24,
+          "x": 0,
+          "y": 8
+        }
+      },
+      {
+        "id": 4,
+        "title": "Business Metrics",
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "rate(business_events_total[5m])",
+            "legendFormat": "{{event_type}} - {{user_segment}}"
+          },
+          {
+            "expr": "active_users_current",
+            "legendFormat": "Active Users"
+          },
+          {
+            "expr": "rate(user_sessions_total[5m])",
+            "legendFormat": "Sessions/sec"
+          }
+        ],
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 16
+        }
+      },
+      {
+        "id": 5,
+        "title": "Resource Utilization",
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "application_memory_usage_bytes",
+            "legendFormat": "{{type}}"
+          },
+          {
+            "expr": "rate(process_cpu_seconds_total[5m])",
+            "legendFormat": "CPU Usage"
+          }
+        ],
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 16
+        }
+      },
+      {
+        "id": 6,
+        "title": "Database Performance",
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "database_connections_active",
+            "legendFormat": "{{database}} - {{state}}"
+          },
+          {
+            "expr": "rate(db_query_duration_seconds[5m])",
+            "legendFormat": "Query Duration"
+          }
+        ],
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 24
+        }
+      },
+      {
+        "id": 7,
+        "title": "Cache Performance",
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "rate(cache_operations_total[5m])",
+            "legendFormat": "{{operation}} - {{result}}"
+          }
+        ],
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 24
+        }
+      },
+      {
+        "id": 8,
+        "title": "Kubernetes Pod Status",
+        "type": "table",
+        "targets": [
+          {
+            "expr": "kube_pod_status_phase",
+            "legendFormat": "{{pod}} - {{phase}}"
+          }
+        ],
+        "gridPos": {
+          "h": 8,
+          "w": 24,
+          "x": 0,
+          "y": 32
+        }
+      },
+      {
+        "id": 9,
+        "title": "Cost Optimization Metrics",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "kube_node_status_capacity_cpu_cores",
+            "legendFormat": "Total CPU Cores"
+          },
+          {
+            "expr": "kube_node_status_capacity_memory_bytes",
+            "legendFormat": "Total Memory"
+          },
+          {
+            "expr": "kube_pod_container_resource_requests_cpu_cores",
+            "legendFormat": "Requested CPU"
+          },
+          {
+            "expr": "kube_pod_container_resource_requests_memory_bytes",
+            "legendFormat": "Requested Memory"
+          }
+        ],
+        "gridPos": {
+          "h": 8,
+          "w": 24,
+          "x": 0,
+          "y": 40
+        }
+      },
+      {
+        "id": 10,
+        "title": "Security Events",
+        "type": "timeseries",
+        "targets": [
+          {
+            "expr": "rate(application_errors_total[5m])",
+            "legendFormat": "{{error_type}} - {{severity}}"
+          },
+          {
+            "expr": "rate(security_events_total[5m])",
+            "legendFormat": "{{event_type}}"
+          }
+        ],
+        "gridPos": {
+          "h": 8,
+          "w": 24,
+          "x": 0,
+          "y": 48
+        }
+      }
+    ],
+    "time": {
+      "from": "now-1h",
+      "to": "now"
+    },
+    "refresh": "30s",
+    "schemaVersion": 27,
+    "version": 1,
+    "links": [],
+    "annotations": {
+      "list": [
+        {
+          "name": "Deployments",
+          "datasource": "Prometheus",
+          "expr": "kube_deployment_status_replicas_available",
+          "iconColor": "blue",
+          "enable": true,
+          "showIn": 0
+        }
+      ]
+    },
+    "templating": {
+      "list": [
+        {
+          "name": "namespace",
+          "type": "query",
+          "query": "label_values(kube_pod_info, namespace)",
+          "refresh": 1,
+          "includeAll": true,
+          "multi": true
+        },
+        {
+          "name": "pod",
+          "type": "query",
+          "query": "label_values(kube_pod_info{namespace=~\"$namespace\"}, pod)",
+          "refresh": 1,
+          "includeAll": true,
+          "multi": true
+        }
+      ]
+    }
+  }
+}

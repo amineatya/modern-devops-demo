@@ -1,0 +1,43 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: cicd-demo-dr
+  namespace: demo
+spec:
+  host: cicd-demo
+  trafficPolicy:
+    connectionPool:
+      tcp:
+        maxConnections: 10
+      http:
+        http1MaxPendingRequests: 10
+        maxRequestsPerConnection: 2
+        maxRetries: 3
+        consecutiveGatewayErrors: 5
+        interval: 30s
+        baseEjectionTime: 30s
+    circuitBreaker:
+      consecutiveErrors: 5
+      interval: 30s
+      baseEjectionTime: 30s
+      maxEjectionPercent: 50
+    outlierDetection:
+      consecutiveErrors: 5
+      interval: 30s
+      baseEjectionTime: 30s
+      maxEjectionPercent: 50
+  subsets:
+  - name: v1
+    labels:
+      version: v1
+    trafficPolicy:
+      connectionPool:
+        tcp:
+          maxConnections: 5
+  - name: v2
+    labels:
+      version: v2
+    trafficPolicy:
+      connectionPool:
+        tcp:
+          maxConnections: 5
