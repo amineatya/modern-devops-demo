@@ -1,0 +1,41 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: cicd-demo-project
+  namespace: argocd
+spec:
+  description: CI/CD Demo Application Project
+  sourceRepos:
+  - 'https://github.com/amineatya/cicd-demo'
+  destinations:
+  - namespace: 'demo'
+    server: https://kubernetes.default.svc
+  - namespace: 'monitoring'
+    server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+  - group: ''
+    kind: Namespace
+  - group: ''
+    kind: ServiceAccount
+  - group: ''
+    kind: Secret
+  - group: ''
+    kind: ConfigMap
+  namespaceResourceWhitelist:
+  - group: 'apps'
+    kind: Deployment
+  - group: 'apps'
+    kind: ReplicaSet
+  - group: ''
+    kind: Service
+  - group: 'networking.k8s.io'
+    kind: NetworkPolicy
+  - group: 'autoscaling'
+    kind: HorizontalPodAutoscaler
+  roles:
+  - name: cicd-demo-admin
+    policies:
+    - p, proj:cicd-demo-project:cicd-demo-admin, applications, *, cicd-demo-project/*, allow
+    - p, proj:cicd-demo-project:cicd-demo-admin, repositories, *, *, allow
+    groups:
+    - cicd-demo-admins

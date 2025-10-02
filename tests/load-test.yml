@@ -1,0 +1,56 @@
+config:
+  target: 'http://localhost:3000'
+  phases:
+    - duration: 60
+      arrivalRate: 10
+      name: "Warm up"
+    - duration: 120
+      arrivalRate: 20
+      name: "Ramp up load"
+    - duration: 300
+      arrivalRate: 30
+      name: "Sustained load"
+    - duration: 60
+      arrivalRate: 50
+      name: "Spike test"
+  defaults:
+    headers:
+      User-Agent: "Artillery Load Test"
+
+scenarios:
+  - name: "Health Check Load Test"
+    weight: 40
+    flow:
+      - get:
+          url: "/healthz"
+          expect:
+            - statusCode: 200
+            - hasHeader: "content-type"
+      - think: 1
+
+  - name: "API Status Load Test"
+    weight: 30
+    flow:
+      - get:
+          url: "/api/v1/status"
+          expect:
+            - statusCode: 200
+      - think: 2
+
+  - name: "Root Endpoint Load Test"
+    weight: 20
+    flow:
+      - get:
+          url: "/"
+          expect:
+            - statusCode: 200
+      - think: 1
+
+  - name: "Metrics Endpoint Load Test"
+    weight: 10
+    flow:
+      - get:
+          url: "/metrics"
+          expect:
+            - statusCode: 200
+      - think: 3
