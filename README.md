@@ -1,6 +1,6 @@
 # 🚀 Modern DevOps Demo
 
-> **An enterprise-grade demonstration of advanced DevOps practices, showcasing expert-level skills in service mesh, distributed tracing, chaos engineering, cost optimization, and advanced security policies.**
+> **An enterprise-grade demonstration of advanced DevOps practices, showcasing service mesh, distributed tracing, chaos engineering, cost optimization, and advanced security policies.**
 
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/amineatya/cicd-demo)
 [![Security](https://img.shields.io/badge/security-scanned-brightgreen)](https://github.com/amineatya/cicd-demo)
@@ -9,7 +9,7 @@
 
 ## 🎯 Overview
 
-This expert-level application demonstrates advanced DevOps practices including:
+This enterprise-level application demonstrates advanced DevOps practices including:
 
 - **🔧 Advanced CI/CD Pipeline** - Multi-stage Jenkins pipeline with parallel execution
 - **📊 Monitoring & Observability** - Prometheus metrics, structured logging, health checks
